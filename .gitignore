@@ -1,0 +1,11 @@
+.idea/
+.tox/
+
+build/
+dist/
+python_tempodb.egg-info/
+*.pyc
+*.egg-info/
+
+.DS_Store
+MANIFEST.in
