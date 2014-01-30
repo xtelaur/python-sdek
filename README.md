@@ -2,7 +2,7 @@ Python interface for API CDEK delivery company
 ==============================================
 
 
-[![Build Status](https://secure.travis-ci.org/xtelaur/python-cdek.png)](http://travis-ci.org/xtelaur/python-cdek)
+[![Build Status](https://travis-ci.org/xtelaur/python-cdek.png?branch=master)](https://travis-ci.org/xtelaur/python-cdek)
 [![Coverage Status](https://coveralls.io/repos/xtelaur/python-cdek/badge.png)](https://coveralls.io/r/xtelaur/python-cdek)
 
 
