@@ -34,8 +34,8 @@ except ImportError:
     import urllib.parse as urlparse
     from urllib.parse import urlencode
 
-from .exceptions import CdekException
-from .conf import API_HOST, API_PORT, API_CALC_PRICE
+from .exceptions import CdekException, CityNameError
+from .conf import API_HOST, API_PORT, API_CITY_LIST, API_CALC_PRICE
 
 
 class CdekCalc(object):
@@ -49,6 +49,7 @@ class CdekCalc(object):
         self.auth_login = auth_login
         self.auth_password = auth_password
         self.port = API_PORT
+        self.timeout = 15
 
     def _is_registered_user(self):
         return self.auth_login and self.auth_password
@@ -79,6 +80,14 @@ class CdekCalc(object):
         protocol = "http://"
         base_full_url = "%s%s/%s%s" % (protocol, API_HOST, target, port)
         return base_full_url
+
+    def _http_get(self, url, data):
+        data.update(data)
+        url = url + '?' + urlencode(data)
+        return urlopen(url.encode('utf8'), timeout=self.timeout).read()
+
+    def _http_post(self, url, data):
+        pass
 
     def request(self, target, **params):
         """
@@ -111,10 +120,23 @@ class CdekCalc(object):
         # TODO: maybe just use 'requests' lib?
         request = Request(url)
         request.headers.update(headers)
-        result = urlopen(request, data, 15)
+        result = urlopen(request, data, self.timeout)
 
         return result.read()
 
     def calculate_price(self, **params):
+        """
+        Return price of delivery
+        """
         price = self.request(API_CALC_PRICE, **params)
         return price
+
+    def get_city_list(self, city_name):
+        """
+        Returns found city list by name
+        """
+        if not city_name:
+            raise CityNameError()
+
+        query = {"q": city_name, "name_startsWith": city_name}
+        return self._http_get(self._get_url(API_CITY_LIST), query)

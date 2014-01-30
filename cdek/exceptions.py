@@ -37,3 +37,7 @@ class CdekException(Exception):
 
     def message(self):
         return self.ERRORS.get(self._err, 'unknown error %s' % self._err)
+
+
+class CityNameError(Exception):
+    pass

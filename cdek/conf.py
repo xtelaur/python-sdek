@@ -4,5 +4,7 @@
 CONFIG_FILES = ["~/.cdekapi.conf"]
 
 API_HOST = 'api.edostavka.ru'
-API_CALC_PRICE = 'calculator/calculate_price_by_json.php'
 API_PORT = 80
+
+API_CALC_PRICE = 'calculator/calculate_price_by_json.php'
+API_CITY_LIST = 'city/getListByTerm/jsonp.php'
