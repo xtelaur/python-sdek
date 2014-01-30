@@ -17,6 +17,11 @@ env:
 
 install:
   - "pip install tox"
+  - "pip install coveralls"
 
 script:
   - tox -e $TOXENV
+  - coverage run --source=cdek setup.py test
+
+after_success:
+  - coveralls
